@@ -1,0 +1,10 @@
+var image;
+var a=image.getClick();
+for (i=-1;i<=1;i++) {
+  for (j=-1;j<=1;j++) {
+    if (i==0 && j==0) {
+      continue;
+    }
+    image.setIntensity(a[0]+i,a[1]+j,255);
+  }
+}

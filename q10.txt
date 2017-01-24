@@ -1,0 +1,28 @@
+var image;
+var a=[];
+var c=[];
+var m=image.getHeight();
+var n=image.getWidth();
+for (i=0;i<=255;++i) {
+  a.push(0);
+  c.push(0);
+}
+for (i=0;i<=m;i++) {
+  for (j=0;j<=n;j++) {
+    var b=image.getIntensity(i,j);
+    a[b]=a[b]+1;
+    c[b]=c[b]+1;
+  }
+}
+for (i=0;i<=255;++i) {
+  for (j=0;j<=i;++j) {
+    c[i]=c[i]+a[j];
+  }
+}
+for (i=0;i<=m;++i) {
+  for (j=0;j<=n;++j) {
+    var d=image.getIntensity(i,j);
+    d=Math.round(255*c[d]/(m*n));
+    image.setIntensity(i,j,d);
+  }
+}

@@ -1,0 +1,12 @@
+var image;
+var c=image.getClick();
+var threshold = image.getIntensity(c[0],c[1]);
+for (row=0;row<=image.getHeight();++row) {
+  for (col=0;col<=image.getWidth();++col) {
+    if (image.getIntensity(row,col)<threshold) {
+      image.setIntensity(row,col,0);
+    } else {
+      image.setIntensity(row,col,255);
+    }
+  }
+}

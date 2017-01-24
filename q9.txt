@@ -1,0 +1,9 @@
+var image;
+var a=[];
+for (row=0;row<=image.getHeight();++row) {
+  for (col=0;col<=image.getWidth();++col) {
+    var b=image.getIntensity(row,col);
+    a.push(b);
+  }
+}
+histogram.setData(a);

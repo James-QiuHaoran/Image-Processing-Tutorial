@@ -1,0 +1,5 @@
+var image;
+var a=image.getDragStart();
+var b=image.getDragEnd();
+var c=Math.abs(a[0]-b[0])+Math.abs(a[1]-b[1]);
+console.log('The D4 distance is ' + c);

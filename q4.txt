@@ -1,0 +1,8 @@
+var image;
+var row,col;
+for (row=0;row<=image.getHeight();++row){
+  for (col=0;col<=image.getWidth();++col){
+    var b=image.getIntensity(row,col);
+    image.setIntensity(row,col,255-b)
+  }
+}

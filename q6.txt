@@ -1,0 +1,11 @@
+var image;
+var row,col;
+var k=0;
+var c=255/(Math.log(256));
+for (row=0;row<=image.getHeight();++row) {
+  for (col=0;col<=image.getWidth();++col) {
+    var a=image.getIntensity(row,col);
+    var b=(Math.log(a+1))*c
+    image.setIntensity(row,col,b)
+  }
+}

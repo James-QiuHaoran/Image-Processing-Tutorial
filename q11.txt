@@ -1,0 +1,92 @@
+var image;
+var a=image.getDragStart();
+var b=image.getDragEnd();
+var threshold=Math.max(image.getIntensity(a[0],a[1]),image.getIntensity(b[0],b[1]));
+if (threshold<127) {      //define the threshold
+  threshold=127;
+}
+console.log('the threshold is ' + threshold);
+var c=[];   // the path
+var d=[];   // the contemporary frontier
+var e=[];   // the explored set
+function A(m,n) {           // this is the heuristic function
+  var distance=Math.sqrt((m-b[0])*(m-b[0])+(n-b[1])*(n-b[1]));
+  return distance;
+}
+function B(m,n) {
+  var s=A(m,n)+(f.length-1);    
+  return s;
+}  
+console.log('here the version is A*');  // A* //
+function C(m,n) {      // define the function checking whether already explored
+  for (i=0;i<=(e.length-1);i=i+2) {  // m and n are the coordinates
+    if (m==e[i] && n==e[i+1]) {
+      d.pop();
+      d.pop();
+    }
+  }
+}
+function D(m,n) {   // define the function checking the grid with center m,n
+  e.push(m,n);  // add to the explored set
+  if (image.getIntensity(m-1,n)<=threshold) {
+    d.push(m-1,n);
+    C(m-1,n);
+  }
+  if (image.getIntensity(m+1,n)<=threshold) {
+    d.push(m+1,n);
+    C(m+1,n);
+  }
+  if (image.getIntensity(m,n+1)<=threshold) {
+    d.push(m,n+1);
+    C(m,n+1);
+  }
+  if (image.getIntensity(m,n-1)<=threshold) {
+    d.push(m,n-1);
+    C(m,n-1);
+  }
+  if (image.getIntensity(m-1,n)>threshold && image.getIntensity(m,n-1)>threshold && image.getIntensity(m-1,n-1)<=threshold) {
+    d.push(m-1,n-1);
+    C(m-1,n-1);
+  }
+  if (image.getIntensity(m-1,n)>threshold && image.getIntensity(m,n+1)>threshold && image.getIntensity(m-1,n+1)<=threshold) {
+    d.push(m-1,n+1);
+    C(m-1,n+1);
+  }
+  if (image.getIntensity(m+1,n)>threshold && image.getIntensity(m,n-1)>threshold && image.getIntensity(m+1,n-1)<=threshold) {
+    d.push(m+1,n-1);
+    C(m+1,n-1);
+  }
+  if (image.getIntensity(m+1,n)>threshold && image.getIntensity(m,n+1)>threshold && image.getIntensity(m+1,n+1)<=threshold) {
+    d.push(m+1,n+1);
+    C(m+1,n+1);
+  }
+}
+var q;
+d.push(a[0],a[1]);
+var f=[];   // the total frontier
+f.push([d[0],d[1]]);
+var p=[];  // the smallest heuristic point
+while (p[0]!=b[0] || p[1]!=b[1]) { 
+  q=50000;
+  for (j=0;j<=(f[(f.length-1)].length-2);j=j+2) { 
+    if (B(d[j],d[j+1])<q) {
+      var q=B(d[j],d[j+1]);
+      p=[d[j],d[j+1]];
+    } 
+  } 
+  c.push(p[0],p[1]);
+  d=[];
+  D(p[0],p[1]);        // check its grid
+  f.push(d);
+  if (p[0]==b[0] && p[1]==b[1]) {
+    console.log('You have found the shortest m-path!');
+    break;
+  }
+  if (d.length==0) {
+    console.log('You can not find the m-path!');
+    break;
+  }
+}
+for (i=0;i<=c.length-2;i=i+2) {
+  image.setIntensity(c[i],c[i+1],255);
+}

@@ -1,0 +1,8 @@
+var image;
+var c=image.getClick();
+var x=c[0];
+var y=c[1];
+var a=image.getIntensity(x,y);
+console.log('The intensity value is ' + a);
+
+
